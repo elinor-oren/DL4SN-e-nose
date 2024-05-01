@@ -1,8 +1,11 @@
 IMAGE 
 
-# E-nose 
+# Using Machine Learning to Create an e-Nose 
 
-Elinor Oren, link to github repo with project work in / link to Edge Impulse projects
+The GitHub repository can be found here.
+The Edge Impulse models can be cloned from here:
+- [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
+- [Spirits](https://studio.edgeimpulse.com/public/390002/live)
 
 ## Introduction
 - an overview of what the project does
@@ -16,7 +19,8 @@ The applications are broad from providing health assessments, such as analyzing 
 In systems of connected environments, they have been used to support sustainable harvesting and agricultural systems, identifying when an individual tree may be ready for harvesting.
 
 HOW DO THEY WORK
-These gas sensors, or e-noses, do not identify the individual molecules 
+
+These gas sensors, or e-noses, do not identify the individual molecules. "most gas sensors on the market, although aimed at (and most sensitive towards) a single chemical, react to a wide range of chemicals. With this array of different sensors you have a vector of correlated quantities and you need to do PCA or some other processing to convert it into a usable "fingerprint". Then you match that fingerprint to a database of known "smells". 
 
 
 I took inspiration from [Benjamin Cabe's nose](https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose)
