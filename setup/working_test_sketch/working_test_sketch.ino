@@ -1,4 +1,5 @@
 /*!
+Adapted from Bhopal 84 gas detector, Roni Bandini June 2022 - @RoniBandini
 TinyML via Edge Impulse
 MIT License
 MiCS-4514 gas sensor https://www.dfrobot.com/product-2417.html
