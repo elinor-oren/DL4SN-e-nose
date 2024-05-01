@@ -1,8 +1,10 @@
 # e-Nose Guide
 
 ## Materials 
-- Arduino BLE 33 Sense
+- Arduino BLE 33 Sense + shield 
 - [MiCS-4514 gas sensor](https://www.dfrobot.com/product-2417.html?)
+- [LCD1602 RGB Module](https://www.waveshare.com/wiki/LCD1602_RGB_Module#Arduino)
+- Two ribbon cables
 
 ## Step 1 - Hardware (Schematic)
 - Use the TinyML shield
