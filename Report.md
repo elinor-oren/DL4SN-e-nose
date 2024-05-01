@@ -5,8 +5,8 @@ IMAGE
 The GitHub repository can be found [here](https://github.com/elinor-oren/DL4SN-e-nose).
 
 The Edge Impulse models can be cloned from here:
-- [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
-- [Spirits](https://studio.edgeimpulse.com/public/390002/live)
+- Model 1: [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
+- Model 2: [Spirits](https://studio.edgeimpulse.com/public/390002/live)
 
 ## Introduction
 - an overview of what the project does
