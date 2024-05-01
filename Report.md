@@ -2,7 +2,7 @@ IMAGE
 
 # Using Machine Learning to Create an e-Nose 
 
-The GitHub repository can be found here.
+The GitHub repository can be found [here](https://github.com/elinor-oren/DL4SN-e-nose).
 
 The Edge Impulse models can be cloned from here:
 - [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
