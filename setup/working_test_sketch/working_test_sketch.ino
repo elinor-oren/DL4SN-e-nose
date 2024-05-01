@@ -1,6 +1,4 @@
 /*!
-Bhopal 84 Data acquisition script
-Roni Bandini June 2022 - @RoniBandini
 TinyML via Edge Impulse
 MIT License
 MiCS-4514 gas sensor https://www.dfrobot.com/product-2417.html
@@ -38,28 +36,28 @@ String line1="";
 String line2="";
 String line3="";
 
-float co2Sum     = 0;
+float coSum     = 0;
 float ch4Sum     = 0;
 float c2H5OHSum  = 0;
 float h2Sum      = 0;
 float nh3Sum     = 0;
 float no2Sum     = 0;
 
-float co2Min     = defaultMin;
+float coMin     = defaultMin;
 float ch4Min     = defaultMin;
 float c2H5OHMin  = defaultMin;
 float h2Min      = defaultMin;
 float nh3Min     = defaultMin;
 float no2Min     = defaultMin;
 
-float co2Max     = 0;
+float coMax     = 0;
 float ch4Max     = 0;
 float c2H5OHMax  = 0;
 float h2Max      = 0;
 float nh3Max     = 0;
 float no2Max     = 0;
 
-float co2Avg     = 0;
+float coAvg     = 0;
 float ch4Avg     = 0;
 float c2H5OHAvg  = 0;
 float h2Avg      = 0;
@@ -113,14 +111,14 @@ void loop()
     myCounter++;
 
     // average
-    co2Avg    =co2Sum/measuresNumber;
+    coAvg    =coSum/measuresNumber;
     ch4Avg    =ch4Sum/measuresNumber;
     c2H5OHAvg =c2H5OHSum/measuresNumber;
     h2Avg     =h2Sum/measuresNumber;
     nh3Avg    =nh3Sum/measuresNumber;
     no2Avg    =no2Sum/measuresNumber;
     line1="Series #"+String(myCounter);
-    line2=String(co2Avg)+"-"+String(c2H5OHAvg);
+    line2=String(coAvg)+"-"+String(c2H5OHAvg);
     line3=String(h2Avg)+"-"+String(nh3Avg);
 
     /*
@@ -146,7 +144,7 @@ void loop()
 
     // normalize min
 
-    if (co2Min==defaultMin) {co2Min=0;};
+    if (coMin==defaultMin) {coMin=0;};
     if (ch4Min==defaultMin) {ch4Min=0;};
     if (c2H5OHMin==defaultMin) {c2H5OHMin=0;};
     if (h2Min==defaultMin) {h2Min=0;};
@@ -160,7 +158,7 @@ void loop()
     Serial.print(timeStamp);
     Serial.print(",");
     
-    Serial.print(co2Avg);
+    Serial.print(coAvg);
     Serial.print(",");
     Serial.print(ch4Avg);
     Serial.print(",");
@@ -173,7 +171,7 @@ void loop()
     Serial.print(no2Avg);    
 
     Serial.print(",");
-    Serial.print(co2Min);
+    Serial.print(coMin);
     Serial.print(",");
     Serial.print(ch4Min);
     Serial.print(",");
@@ -186,7 +184,7 @@ void loop()
     Serial.print(no2Min);  
 
     Serial.print(",");
-    Serial.print(co2Max);
+    Serial.print(coMax);
     Serial.print(",");
     Serial.print(ch4Max);
     Serial.print(",");
@@ -201,21 +199,21 @@ void loop()
     delay(2000);
 
      // reset counters
-     co2Sum     = 0;
+     coSum      = 0;
      ch4Sum     = 0;
      c2H5OHSum  = 0;
      h2Sum      = 0;
      nh3Sum     = 0;
      no2Sum     = 0;
          
-     co2Min     = defaultMin;
+     coMin      = defaultMin;
      ch4Min     = defaultMin;
      c2H5OHMin  = defaultMin;
      h2Min      = defaultMin;
      nh3Min     = defaultMin;
      no2Min     = defaultMin;
     
-     co2Max     = 0;
+     coMax      = 0;
      ch4Max     = 0;
      c2H5OHMax  = 0;
      h2Max      = 0;
@@ -233,7 +231,7 @@ void loop()
     measuresCounter++;
 
     // gets data from sensor
-    float co2data     = mics.getGasData(CO);
+    float codata     = mics.getGasData(CO);
     float ch4data     = mics.getGasData(CH4);
     float c2H5OHdata  = mics.getGasData(C2H5OH);
     float h2data      = mics.getGasData(H2);
@@ -241,7 +239,7 @@ void loop()
     float no2data     = mics.getGasData(NO2);
 
     // sum to calculate average
-    co2Sum     = co2Sum+co2data;
+    coSum     = coSum+codata;
     ch4Sum     = ch4Sum+ch4data;
     c2H5OHSum  = c2H5OHSum+c2H5OHdata;
     h2Sum      = h2Sum+h2data;
@@ -252,8 +250,8 @@ void loop()
     if (printReadings==1){
       
             Serial.println("----------------------- Plain Readings");
-            Serial.print("Carbon Monoxide: ");
-            Serial.print(co2data,1);
+            Serial.print("Carbon Monox: ");
+            Serial.print(codata,1);
             Serial.println(" PPM");
         
             Serial.print("Methane: ");
@@ -281,8 +279,8 @@ void loop()
 
     // higher than max
     
-    if (co2data>co2Max){
-      co2Max=co2data;      
+    if (codata>coMax){
+      coMax=codata;      
       }
 
     if (ch4data>ch4Max){
@@ -307,8 +305,8 @@ void loop()
 
     // lower than min
     
-    if (co2data>0 and (co2data<co2Min)){
-      co2Min=co2data;      
+    if (codata>0 and (codata<coMin)){
+      coMin=codata;      
       }
 
     if (ch4data>0 and (ch4data<ch4Min)){
