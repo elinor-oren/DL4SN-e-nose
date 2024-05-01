@@ -34,7 +34,14 @@ Imperceptible subtleties and patterns are picked up by machines all the time, bu
 ## Device Overview
 The E-Nose project is composed of the following primary components:
 
-1. Gas Sensor: This is the X sensor, capturing four types of gases X, Y, Z, and O to , to create a gaseous fingerprint. The the variation (min, max, average, etc.) of the concentration of each gas
+1. Gas Sensor: This is the X sensor, capturing six types of gases X, Y, Z, and O to , to create a gaseous fingerprint. The the variation (min, max, average, etc.) of the concentration of each gas.
+   
+- Carbon Monoxide (CO): Range is 1 – 1000 ppm
+- Nitrogen Dioxide (NO2): Range is 0.05 – 10 ppm
+- Ethanol (C2H5OH): Range is 10 – 500 ppm
+- Hydrogen (H2): Range is 1 – 1000 ppm
+- Ammonia (NH3): Range is 1 – 500 ppm
+- Methane (CH4): Range is above 1000 ppm
 
 chart of how many ppm of each gas is captured
 
@@ -55,7 +62,8 @@ Thinking back to the various application diagrams you have seen through the modu
 
 The training database uses the serial output readings of from my sensor. After initiating the sensor and collecting 25-30 mins of data per stimuli, I copied the serial monitor readings to a textfile. To ensure the data's revelance, I collected data directly from bottle and from a cup and in different temperatures to have a wide range of conditions. In further experiments I used a wide mouthed jar as I felt this was most representative of use. I collected roughly equal amounts of each class to have a balanced dataset. Appropriately sized, and Well-formatted. 
 
-The variation in gas concentration allowed for improved feature selection. 
+The variation in gas concentration allowed for improved feature selection. Each serial output 
+`[timestamp],[CO average],[CH4 average],[C2H5OH average],[H2 average],[NH3 average],[NO2 average],[CO min],[CH4 min],[C2H5OH min],[H2 min],[NH3 min],[NO2 min],[CO max],[CH4 max],[C2H5OH max],[H2 max],[NH3 max],[NO2 max]`
 
 ### Data Cleaning
 
