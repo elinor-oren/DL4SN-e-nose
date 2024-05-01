@@ -60,7 +60,8 @@ Thinking back to the various application diagrams you have seen through the modu
 
 The training database uses the serial output readings of from my sensor. After initiating the sensor and collecting 25-30 mins of data per stimuli, I copied the serial monitor readings to a textfile. To ensure the data's robustness, I collected data directly from bottle, from a cup, and in different temperatures to ensure the model works in a wider range of conditions. In further experiments I used a wide mouthed jar as I felt this was most representative of use. I collected roughly equal amounts of each class to have a balanced dataset. 
 
-The variation in gas concentration allowed for improved feature selection. Each serial output 
+The variation in gas concentration allowed for improved feature selection. This serial output formatting facilitated conversion to csv: 
+
 `[timestamp],[CO average],[CH4 average],[C2H5OH average],[H2 average],[NH3 average],[NO2 average],[CO min],[CH4 min],[C2H5OH min],[H2 min],[NH3 min],[NO2 min],[CO max],[CH4 max],[C2H5OH max],[H2 max],[NH3 max],[NO2 max]`
 
 ### Data Cleaning
