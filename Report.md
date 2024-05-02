@@ -4,9 +4,12 @@ IMAGE
 
 The GitHub repository can be found [here](https://github.com/elinor-oren/DL4SN-e-nose).
 
-The Edge Impulse models can be cloned from here:
+The models can be cloned from here:
 - Model 1: [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
 - Model 2: [Spirits](https://studio.edgeimpulse.com/public/390002/live)
+- Model 3: [Spirits Tensorflow](https://colab.research.google.com/drive/17WNaPwpjnEAJqz69V1e2gspFLwY31upm?usp=sharing)
+- Model 4: [Spirits Tensorflow](https://colab.research.google.com/drive/17WNaPwpjnEAJqz69V1e2gspFLwY31upm?usp=sharing)
+
 
 ## Introduction
 - an overview of what the project does
@@ -17,25 +20,20 @@ The applications are broad from providing health assessments, such as analyzing 
 
 - facilitate quality assurance, product/brand fingerprinting, and spoilage detection of products, where trained experts and experienced aficionados can easily tell the difference between whiskies from their scents. But it is quite difficult for most consumers, especially amateurs.
 
-In systems of connected environments, they have been used to support sustainable harvesting and agricultural systems, identifying when an individual tree may be ready for harvesting.
+In systems of connected environments, they have been used to support sustainable harvesting and agricultural systems, such as identifying when a peach tree may be ready for harvesting. (Voss, Ricardo Antonio Ayub and Sergio Luiz Stevan, 2020)
 
-HOW DO THEY WORK
-
-These gas sensors, or e-noses, do not identify the individual molecules. "most gas sensors on the market, although aimed at (and most sensitive towards) a single chemical, react to a wide range of chemicals. With this array of different sensors you have a vector of correlated quantities and you need to do PCA or some other processing to convert it into a usable "fingerprint". Then you match that fingerprint to a database of known "smells". 
-
+E-noses often use sensor arrays to  Most commercial gas sensors, although aimed at (and most sensitive towards) a single chemical, react to a wide range of chemicals. With this array of different sensors you have a vector of correlated quantities and you need to do PCA or some other processing to convert it into a usable "fingerprint". Then you match that fingerprint to a database of known "smells". 
 
 I took inspiration from [Benjamin Cabe's nose](https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose)
 
 ## Research Question
 Imperceptible subtleties and patterns are picked up by machines all the time, but given a brief "sniff" exposure, can we train a model to classify "gourmet" fooditems that have a similar smell and only have minute differences in odor? 
 
-*Tip: probably 1 or 2 sentences*
-
 ## Device Overview
 The E-Nose project is composed of the following primary components:
 
-1. Gas Sensor: This is the X sensor, capturing six types of gases X, Y, Z, and O to , to create a gaseous fingerprint. The the variation (min, max, average, etc.) of the concentration of each gas.
-   Gas                   Range 
+1. Gas Sensor: This is the X sensor, capturing six types of gases to create a gaseous or odor fingerprint of each alcohol. The the variation (min, max, average, etc.) of the concentration of each gas is captured as well.
+   
 - Carbon Monoxide (CO): Range is 1 – 1000 ppm
 - Nitrogen Dioxide (NO2): Range is 0.05 – 10 ppm
 - Ethanol (C2H5OH): Range is 10 – 500 ppm
@@ -43,16 +41,24 @@ The E-Nose project is composed of the following primary components:
 - Ammonia (NH3): Range is 1 – 500 ppm
 - Methane (CH4): Range is above 1000 ppm
 
-2. Processing Unit: An Arduino Nano 33 BLE collects the sensor data and used to build a database on the Edge Impulse platform, where a deep learning model is trained to recognize the odor. After training, the model is exported as a TensorFlow Lite Arduino library, which is then deployed back on the Arduino Nano 33 BLE for real-time processing. It uses this model to classify the alchol or coffee beans.
+2. Processing Unit: An Arduino Nano 33 BLE collects the sensor data and publishes it to the serial monitor. A deep learning model is trained on this data and deployed via a TensorFlow Lite Arduino library for real-time classification of alcohol. 
 
-3. Visual Output: An LCD screen displays the classification of the data.
+3. Visual Output: An LCD screen displays the classification / label of the data.
    
-4. Enclosure: The enclosure 
-
-Thinking back to the various application diagrams you have seen through the module - how would you describe an overview of the building blocks of your project - how do they connect, what do the component parts include.
+4. Enclosure: The enclosure allows airflow from the liquid, this has had several iterations.
 
 ## Application Overview
 
+### Models 1 & 2: Complex Neural Network
+This model is more complex with multiple dense layers, and more controlled training parameters like batch size and determinism flags. This model is more robust but unnecessarily complex for my needs. For these models I did not use any DSP blocks because the standard Edge Impulse options ones were geared towards time-series data; I think this approach generally didn't work well because it was meant to be timeseries data. 
+
+<img width="500" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/94852c4e-4595-4a88-8be8-37b3713de109">
+
+
+### Models 3 & 4: Softmax Regression and Multi-Layer Perceptron with final softmax
+This developed from a simple neural network that has a single dense layer of inputs and uses softmax activation. It is essentially performing a logistic regression that works for multi-class classification and was suitable for my simple classification task. In model 3, I simply used regression. To enhance my model's capacity to capture complex patterns in the data, I then integrated two hidden layers with ReLu. Model Architecture diagram adapted from [this](https://www.youtube.com/watch?v=wgXLJWxOCI8) Analytics Vidhya video. 
+
+<img width="500" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/75c13de7-2fd6-4010-87a2-8597418b59ef">
 
 
 ## Data
@@ -69,33 +75,56 @@ The variation in gas concentration allowed for improved feature selection. This 
 After collection, the serial data needed to be reformatted into an csv to be readable by EdgeImpulse. This data could sometimes contain unnecessary readings like "warming up" or "0.0," which necessitated that I create a python cleaning script in codelabs. 
 
 ### Data Organization
-I used the 60/20/20 split for training, validation, and testing data. Edge Impulse automatically did this for me. 
-What model architecture did you use? Did you try different ones? Why did you choose the ones you did?
-
-
-*Tip: probably ~200 words and images of what the data 'looks like' are good!*
+I used the 60/20/20 split for training, validation, and testing data. Edge Impulse automatically did this for me or I specified it in my regression models. I stored my data in a google drive folder for easy access by colabs.
 
 ## Model Iterations 
-My model's parameters included:
 
-- Epochs (20 or 50 training cycles).
-- Final layer neurons (0 or 32).
-
-I did not use any DSP blocks because the standard ones were geared towards time-series data. Rather than 
-
-### Wine Classifier Model 
+### Model 1: Wine Classifier Model 
 #### Test 1: 
-Confirming model sensitivity to my data.  
-- Data:
+This experiment is intended to develop a workflow of collecting and reformatting data and gaining some experience with the proper parameters to train the model with. This model is meant to establish that the gas signatures can be used to classify the alcohols. This model uses:
 
-Overfitting 
+- Rose Wine
+- Pinot Grigio Wine,
+- Air
+
+Both alcohols are of the same percentage and have the same bottle. The bottles were shaken gently to promote vapor before data collection and capped until the first line of data is printed. The sensor sits on the small mouth of the bottle to limit exposure to air. Data was collected for a minimum of 10 minutes.
+
+The features are mostly separated, though there is some overlap between the layers. The most important distinguishing feature seems to be Ethanol and Ammonia. At first the model consistently performed very poorly on the rosé data. There was 4 minutes less data for the rose, so I believed the error could likely arise from insufficient data. I toggled on the weighing. 
+
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/ea2c8386-77e7-472b-9cb0-6526e8911309">
+
+While multiple iterations on training settings, lowering the learning rate to .0001, increasing training cycles to 60, and lowering confidence threshold from 0.6 to 0.3 dramatically increased accuracy rates and lowered loss, this resulted in an overfit model. 
+
+
+The model doesn’t generalize well, and I need more data. 
+
+
+Test 2 
+This experiment is intended to confirm that the model can be deployed in live settings. 
+
+What I did differently?
+- Data will be collected from liquids in cups to test whether the model works with exposure to air diluting and modifying the sensor readings.
+- Removed air as a control
+- Added more data
+- Modified the CSV wiizard to augment my data 
+
+Test 2 - Adding data and modifying features
+Features - methane, ammonia, ethanol, 
+Performance - 66.1
+Provided more data, container has a wider mouth and is in partial to direct sun- Rose (151 points), Pinot (140 points) but features seem poorly differentiated
+ 
+The key differentiating features include CH4, which I removed in Attempt 1 based on the data unexposed to air. This is an interesting change. 
+
+Attempt 5 - Adding data
+Rose (217), Pinot (235)
+
 
 #### Test 2 
 
 - Data: 
 
 
-### Alcohol Classifier Model 
+### Model 2: Spirit Classifier Model (EI)
 ### Test 1 
 
 What did I do differently?
@@ -114,7 +143,12 @@ When using the feature explorer on my data, we can see that the higher percentag
 <img width="180" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/e7a99cd4-79d8-49ad-a504-881a2945030b">
 <img width="400" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/7559cfd4-400a-49fd-8794-9bd58786517b">
 
-I wanted to figure out whether I could remove more axes to at least improve accuracy but the EdgeImpulse feature rankings were nondescript and unhelpful. Upon Martin's suggestion, I could use some kind of regression analysis to determine which axes to remove. 
+I wanted to figure out whether I could remove more axes to at least improve accuracy but the EdgeImpulse feature rankings were nondescript and unhelpful. 
+
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/5531cdf3-e5b9-4757-8623-af2476de29a3">
+
+
+Upon Martin's suggestion, I decided to use some kind of regression analysis to determine which axes to remove. 
 
 #### Linear Regression 
 My goal was to use the type of beverage as a categorical dependent variable to see which features are most important in distinguising the three types of alcohol using the [scikit-learn](https://scikit-learn.org/stable/index.html) `linear_model` in google Colab. From there, my coefficient analysis showed me that my NO2 data had even less influence on the alcohol type than my timestamps! (You can upload your files and access the script [here](https://colab.research.google.com/drive/1EfYz-UCEDjvid-uTBobtLptgC90SV4kT?usp=sharing))
@@ -159,22 +193,31 @@ Class 2 (Malbec) vs. Class 0 (Gin):
 - NH3avg (0.083771): Higher ammonia averages increase the odds of being malbec over gin, opposite of its effect on whisky.
 
 ##### Accuracy and Performance:
+<img width="223" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/39581985-b3ad-452c-afd2-806ecdf527be">
 
 ### Test 2 
 
 What did I do differently?
 - Reduced features to 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
-  
-<img width="539" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/856d77b3-ea74-4ad7-a3c8-d385edb5ca67">
 
+For this test, I used the following parameters for my input block: 
+<img width="782" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/adb7261f-9da3-49cc-ade3-5493fd7843b9">
 
-### Coffee Bean Classifier 
-  
+### Test 3 
+What did I do differently?
+- Maintained features at 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
+- Added a new alcohol that looked like it had different readings to replace gin
+
+## Model 3: Spirit Classifier Model (TF lite)   
+I converted my logistic regression model to a Tensorflow model. 
 
 ## Results and Observations
 Synthesis the main results and observations you made from building the project. Did it work perfectly? Why not? What worked and what didn't? Why? What would you do next if you had more time? Reflection on how the project could be improved are presented, and feedback from the crit is included.
 
 ## Future Developments 
+
+Moving forward, I would try to make the data forwarding function work or use a serial reader to do this. I would also like to improve the 
+
 
 ## Bibliography
 *If you added any references then add them in here using this format:*
@@ -183,14 +226,7 @@ Synthesis the main results and observations you made from building the project. 
 
 2. Hampson, M. (2022). This E-Nose Sniffs Out the Good Whiskey. IEEE Spectrum. https://spectrum.ieee.org/electronic-nose-whiskey.
 3. SPSS Analysis (2024). Multinomial Logistic Regression in SPSS - Explained with Example. Statistical Analysis Services For Academic Researches. Available at: https://spssanalysis.com/multinomial-logistic-regression-in-spss/.
-
-‌
-
-4. Last name, First initial. (Year published). Title. Edition. (Only include the edition if it is not the first edition) City published: Publisher, Page(s). http://google.com
-
-5. Last name, First initial. (Year published). Title. Edition. (Only include the edition if it is not the first edition) City published: Publisher, Page(s). http://google.com
-
-*Tip: we use [https://www.citethisforme.com](https://www.citethisforme.com) to make this task even easier.* 
+4. Voss, J., Ricardo Antonio Ayub and Sergio Luiz Stevan (2020). E-nose Prototype to Monitoring the Growth and Maturation of Peaches in the Orchard. IEEE sensors journal, 20(20), pp.11741–11750. doi:https://doi.org/10.1109/jsen.2020.3000070.
 
 ----
 
@@ -198,7 +234,6 @@ Synthesis the main results and observations you made from building the project. 
 
 I, Elinor Oren, confirm that the work presented in this assessment is my own. Where information has been derived from other sources, I confirm that this has been indicated in the work.
 
-
-*Digitally Sign by typing your name here*
+*ELINOR OREN*
 
 ASSESSMENT DATE
