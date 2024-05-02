@@ -8,23 +8,22 @@ The models can be cloned from here:
 - Model 1: [Pinot & Rose](https://studio.edgeimpulse.com/public/370763/live).
 - Model 2: [Spirits](https://studio.edgeimpulse.com/public/390002/live)
 - Model 3: [Spirits Tensorflow](https://colab.research.google.com/drive/17WNaPwpjnEAJqz69V1e2gspFLwY31upm?usp=sharing)
-- Model 4: [Spirits Tensorflow](https://colab.research.google.com/drive/17WNaPwpjnEAJqz69V1e2gspFLwY31upm?usp=sharing)
-
+- Model 4: [Spirits Tensorflow](https://colab.research.google.com/drive/1wUd8ezfSlBILGe2OIBenykUa4Q3mnzyb?usp=sharing)
 
 ## Introduction
-- an overview of what the project does
-- your inspiration for making the project 
-- examples that it is based on.
+This project is an attempt to create an electronic nose, or an e-Nose, to detect. 
 
-The applications are broad from providing health assessments, such as analyzing fecal VOCs for IBS/IBD detection (Ahmed et al., 2013), analyzing breath glucose for diabetes, or analyzing 
+The applications of an e-Nose are broad and quite interesting: from providing diagnostic aid, such as analyzing fecal VOCs for IBS/IBD detection (Ahmed et al., 2013), inferring glucose levels from the breath ketone/acetone of diabetics (Ye et al., 2022), to facilitating quality assurance and product/brand fingerprinting where only trained experts and experienced aficionados can easily tell the difference between whiskies from their scents. (Zhang et al., 2022)
 
-- facilitate quality assurance, product/brand fingerprinting, and spoilage detection of products, where trained experts and experienced aficionados can easily tell the difference between whiskies from their scents. But it is quite difficult for most consumers, especially amateurs.
+In systems of connected environments, they have been used to support sustainable harvesting and agricultural systems, such as identifying when a peach tree may be ready for harvesting! (Voss, Ricardo Antonio Ayub and Sergio Luiz Stevan, 2020)
 
-In systems of connected environments, they have been used to support sustainable harvesting and agricultural systems, such as identifying when a peach tree may be ready for harvesting. (Voss, Ricardo Antonio Ayub and Sergio Luiz Stevan, 2020)
+Of course, the e-Nose architecture is not standard - it simply refers to using a chemical gas sensor to classify the nature of the substance at hand. Commercial sensors that are most sensitive towards and calibrated for a single chemical react to a wider range of chemicals, and e-Noses usually non-specific sensors with high cross-sensitivity. Metal oxide semiconductors (MOS) are widely used in air quality analysis and e-Nose functions due to their small size and ability to detect VOCs as well as CO, NO2 and NH3, however chemically sensitive conductive and non-conductive polymer films as well as quartz crystal microbalance systems have been used successfully and cater best towards VOCs and uses with non-specific needs. (Machado et al., 2023; Yong Shin Kim et al., 2005; Julian et al., 2020)
 
-E-noses often use sensor arrays to  Most commercial gas sensors, although aimed at (and most sensitive towards) a single chemical, react to a wide range of chemicals. With this array of different sensors you have a vector of correlated quantities and you need to do PCA or some other processing to convert it into a usable "fingerprint". Then you match that fingerprint to a database of known "smells". 
+Wilson (2013) describes the e-Nose system as such: 
 
-I took inspiration from [Benjamin Cabe's nose](https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose)
+> A complete electronic-nose system typically consists of several integrated and/or interfaced components including a multisensor array (composed of several to many gas sensors with broad sensitivity and cross-reactivity or partially-overlapping selectivity), a data-processing and analysis unit such as an artificial neural network (ANN), software having digital pattern-recognition algorithms, and often aroma reference-library databases containing stored files with digital fingerprints of specific aroma reference (signature) patterns.
+
+I took inspiration from [Benjamin Cabe's nose](https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose) and his classification of different alcohols. I originally wanted to make a model that classified coffee beans into their origin, like this very interesting project, but I didn't have coffee beans on hand (and the sensor I purchased for VOC classification and detection was stolen along with my backpack in Soho.)  
 
 ## Research Question
 Imperceptible subtleties and patterns are picked up by machines all the time, but given a brief "sniff" exposure, can we train a model to classify "gourmet" fooditems that have a similar smell and only have minute differences in odor? 
@@ -45,7 +44,7 @@ The E-Nose project is composed of the following primary components:
 
 3. Visual Output: An LCD screen displays the classification / label of the data.
    
-4. Enclosure: The enclosure allows airflow from the liquid, this has had several iterations.
+4. Enclosure: The enclosure allows airflow from the liquid, this has had several iterations. See `README.md` file in the repository for more information. 
 
 ## Application Overview
 
@@ -59,7 +58,6 @@ This model is more complex with multiple dense layers, and more controlled train
 This developed from a simple neural network that has a single dense layer of inputs and uses softmax activation. It is essentially performing a logistic regression that works for multi-class classification and was suitable for my simple classification task. In model 3, I simply used regression. To enhance my model's capacity to capture complex patterns in the data, I then integrated two hidden layers with ReLu. Model Architecture diagram adapted from [this](https://www.youtube.com/watch?v=wgXLJWxOCI8) Analytics Vidhya video. 
 
 <img width="500" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/75c13de7-2fd6-4010-87a2-8597418b59ef">
-
 
 ## Data
 ### Data Collection
@@ -89,54 +87,41 @@ This experiment is intended to develop a workflow of collecting and reformatting
 
 Both alcohols are of the same percentage and have the same bottle. The bottles were shaken gently to promote vapor before data collection and capped until the first line of data is printed. The sensor sits on the small mouth of the bottle to limit exposure to air. Data was collected for a minimum of 10 minutes.
 
-The features are mostly separated, though there is some overlap between the layers. The most important distinguishing feature seems to be Ethanol and Ammonia. At first the model consistently performed very poorly on the rosé data. There was 4 minutes less data for the rose, so I believed the error could likely arise from insufficient data. I toggled on the weighing. 
-
-<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/ea2c8386-77e7-472b-9cb0-6526e8911309">
-
-While multiple iterations on training settings, lowering the learning rate to .0001, increasing training cycles to 60, and lowering confidence threshold from 0.6 to 0.3 dramatically increased accuracy rates and lowered loss, this resulted in an overfit model. 
-
-
-The model doesn’t generalize well, and I need more data. 
-
-
-Test 2 
-This experiment is intended to confirm that the model can be deployed in live settings. 
-
-What I did differently?
-- Data will be collected from liquids in cups to test whether the model works with exposure to air diluting and modifying the sensor readings.
-- Removed air as a control
-- Added more data
-- Modified the CSV wiizard to augment my data 
-
-Test 2 - Adding data and modifying features
-Features - methane, ammonia, ethanol, 
-Performance - 66.1
-Provided more data, container has a wider mouth and is in partial to direct sun- Rose (151 points), Pinot (140 points) but features seem poorly differentiated
- 
-The key differentiating features include CH4, which I removed in Attempt 1 based on the data unexposed to air. This is an interesting change. 
-
-Attempt 5 - Adding data
-Rose (217), Pinot (235)
-
+The features were mostly separated, and the model consistently performed very poorly on the rosé data. There was 4 minutes less data for the rose, so I believed the error could likely arise from insufficient data.  
 
 #### Test 2 
+This experiment was intended to confirm that the model can be deployed in live settings. 
 
+What I did differently?
+- Removed air as a control
+- Increased training cycles
+- Decreased learning time
+- Added more data
+- Modified the CSV wiizard to augment my data
+- Only 12 input axes - removed 6 input axes (CH4 and NO2 data) thanks to Martin's advice!
+
+While multiple iterations on training settings, lowering the learning rate to .0001, increasing training cycles to 60, and lowering confidence threshold from 0.6 to 0.3 dramatically increased accuracy rates and lowered loss, this resulted in an overfit model - this was brought to my attention by my programme lead. 
+
+#### Test 3 
+
+What I did differently?
+- Modifying features (CH4, NH3, C2H5O5)
+- Provided more and better data (container has a wider mouth and is in partial to direct sun)
+ <img width="657" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/5e8370fe-be71-4c03-9215-fba415c50871">
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/cbc5490e-e929-47f6-bd04-89465a13440a">
+
+#### Test 4 
 - Data: 
+<img width="944" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/517e9372-e083-42ba-bd14-2ea5b234e0ce">
 
 
 ### Model 2: Spirit Classifier Model (EI)
 ### Test 1 
 
 What did I do differently?
-- Increased amount of data 
-- Updated my holder
-- Recorded Iterations / Experiments
-- Only 12 input axes - removed 6 input axes (CH4 and NO2 data) thanks to Martin's advice! 
-
-For this test, I used the following parameters for my impulse block:
-
-<img width="600" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/3dd86c47-b3ff-45f1-be63-6e33698749ac">
-
+- Different, more distinct alcohols 
+- Increased amount of data per class 
+- Updated the holder to be less precarious
 
 When using the feature explorer on my data, we can see that the higher percentage alcohols are poorly differentiated and all overlapping. So, as expected, this produced a highly inaccurate model. 
 
@@ -200,33 +185,76 @@ Class 2 (Malbec) vs. Class 0 (Gin):
 What did I do differently?
 - Reduced features to 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
 
-For this test, I used the following parameters for my input block: 
-<img width="782" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/adb7261f-9da3-49cc-ade3-5493fd7843b9">
-
 ### Test 3 
 What did I do differently?
 - Maintained features at 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
-- Added a new alcohol that looked like it had different readings to replace gin
+- Added a new alcohol that looked like it had different enough readings to replace gin
+
+  <img width="525" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/632c0cb1-57c1-467e-bd58-f81d167e36a8">
+
+While it did well on the cider, the confusion regarding whisky / malbec led me to abandon this approach.  
 
 ## Model 3: Spirit Classifier Model (TF lite)   
-I converted my logistic regression model to a Tensorflow model. 
+I converted my logistic regression model to a Tensorflow model for potential deployment.
 
-## Results and Observations
-Synthesis the main results and observations you made from building the project. Did it work perfectly? Why not? What worked and what didn't? Why? What would you do next if you had more time? Reflection on how the project could be improved are presented, and feedback from the crit is included.
+## Model 4: 
 
-## Future Developments 
+I added two deep layers to my regression model. 
 
-Moving forward, I would try to make the data forwarding function work or use a serial reader to do this. I would also like to improve the 
+## Experiments 
+<img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/78c7945d-2e5e-4f0b-8e09-41f8e8d0cadb">
+
+
+## Reflections and Observations
+
+Initial tests showed promise but revealed issues like insufficient data and general confusion between certain classes, leading to poor performance. Subsequent tests improved by adjusting model parameters and training data volume, yet some models overfit despite higher accuracy in controlled conditions. A recurring theme was the challenge of discerning the root cause of various issues — whether they stemmed from sensor limitations, model constraints, or simply the need for more comprehensive data. This ambiguity often complicated the decision-making process regarding the direction of improvements and adjustments.
+
+### Pain Points 🤡
+
+#### Sensors
+It was difficult to determine if the poor differentiation between classes was due to the sensor's inability to capture subtle differences in gas concentrations due to the intrinsic limitations in sensitivity, specificity, and range.
+
+#### Model Selection 
+The choice between different types of models (complex neural networks vs. simpler logistic regression) also presented challenges. Initially, it was not clear whether the complexity of the neural networks was necessary and appropriate, or if their depth and complexity were overfitting to noise in the data rather than capturing useful patterns. Simplifying the models helped in some respects but also led to doubts about whether the models were just obscuring errors now that I wasn't interacting with the model via a sleek user interface.
+
+### Wins 🙌
+
+#### Incremental Complexity 
+This approach to problem solving was a success - starting with the simplest model that could possibly work and gradually increasing complexity between Models 3 and 4 allowed me to better understand the impact of the hidden layers. Moving from complex neural networks to simpler models like softmax regression and multilayer perceptrons also meant I selected approaches that were more appropriate for the nature of the classification task. The adaptations in models 3 and 4, which included adding hidden layers and adjusting network structures to better handle the data complexity, showed improved performance and were steps in the right direction for enhancing accuracy.
+
+#### Data Collection Methodology 
+The methodology for data collection, especially the variety in sampling conditions (different containers and temperatures), was successful in gathering a diverse set of data points which enriched the dataset's robustness. 
+
+#### Data Cleaning Script 
+One of the standout successes of the E-Nose project was the significant growth in technical skills and confidence, particularly in areas that were initially intimidating. Prior to this project, Python was a daunting tool. The necessity to clean and preprocess the data for modeling led to the development of a Python script capable of transforming raw sensor outputs into structured CSV files. The successful creation and implementation of the data cleaning script and learning to using colabs felt like a significant milestone.
+
+#### Broader Exposure to ML Concepts
+This project served as a crash course in various machine learning concepts and techniques, from feature selection and model optimization to understanding different types of regression and their applications in classification tasks. 
+
+### Future Directions
+
+Moving forward, I would try to make the data forwarding function work or use a serial reader to move data from my serial monitor to a CSV file. I would also try to collect data with a different sensor to see if this was the issue. Obviously, I'd increase my data volume to refine the models further. I'd also like to refine my enclosure - I bought a fan and hollowed out a medical model of a silicone nose to try and make a creepy handheld device, but the sensor simply could not pick up data through the nose without suction or external air flow. 
 
 
 ## Bibliography
 *If you added any references then add them in here using this format:*
 
-1.Ahmed, I., Greenwood, R., Ben, Ratcliffe, N.M. and Probert, C.S. (2013). An Investigation of Fecal Volatile Organic Metabolites in Irritable Bowel Syndrome. PloS one, [online] 8(3), pp.e58204–e58204. doi:https://doi.org/10.1371/journal.pone.0058204.
+1.Ahmed, I., Greenwood, R., Ben, Ratcliffe, N.M. and Probert, C.S. (2013). An Investigation of Fecal Volatile Organic Metabolites in Irritable Bowel Syndrome. PloS one, 8(3), pp.e58204–e58204. doi:https://doi.org/10.1371/journal.pone.0058204.
+2. Cabé, B. (2021). How I Built a Connected Artificial Nose (and How You Can Too!). Benjamin Cabé. Available at: https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose.
+3. Hampson, M. (2022). This E-Nose Sniffs Out the Good Whiskey. IEEE Spectrum. https://spectrum.ieee.org/electronic-nose-whiskey.
+4. Julian, T., Shidiq Nur Hidayat, Aditya Rianjanu, Agus Budi Dharmawan, Hutomo Suryo Wasisto and Kuwat Triyana (2020). Intelligent Mobile Electronic Nose System Comprising a Hybrid Polymer-Functionalized Quartz Crystal Microbalance Sensor Array. ACS omega, 5(45), pp.29492–29503. doi:https://doi.org/10.1021/acsomega.0c04433.
+5. SPSS Analysis (2024). Multinomial Logistic Regression in SPSS - Explained with Example. Statistical Analysis Services For Academic Researches. Available at: https://spssanalysis.com/multinomial-logistic-regression-in-spss/.
+6. Voss, J., Ricardo Antonio Ayub and Sergio Luiz Stevan (2020). E-nose Prototype to Monitoring the Growth and Maturation of Peaches in the Orchard. IEEE sensors journal, 20(20), pp.11741–11750. doi:https://doi.org/10.1109/jsen.2020.3000070.
+7. Wilson, A.D. (2013). Diverse Applications of Electronic-Nose Technologies in Agriculture and Forestry. Sensors, 13(2), pp.2295–2348. doi:https://doi.org/10.3390/s130202295.
+8. Ye, Z., Wang, J., Hua, H., Zhou, X. and Li, Q. (2022). Precise Detection and Quantitative Prediction of Blood Glucose Level With an Electronic Nose System. IEEE sensors journal, 22(13), pp.12452–12459. doi:https://doi.org/10.1109/jsen.2022.3178996.
+9. Yong Shin Kim, Ha, S.-C., Yang, Y. and Youn Tae Kim (2005). Portable electronic nose system based on the carbon black–polymer composite sensor array. ResearchGate. https://www.researchgate.net/publication/223857478_Portable_electronic_nose_system_based_on_the_carbon_black-polymer_composite_sensor_array.
+10. Zhang, W., Liu, T., Brown, A., Ueland, M., Forbes, S.L. and Su, S.W. (2022). The Use of Electronic Nose for the Classification of Blended and Single Malt Scotch Whisky. IEEE sensors journal, 22(7), pp.7015–7021. doi:https://doi.org/10.1109/jsen.2022.3147185.
 
-2. Hampson, M. (2022). This E-Nose Sniffs Out the Good Whiskey. IEEE Spectrum. https://spectrum.ieee.org/electronic-nose-whiskey.
-3. SPSS Analysis (2024). Multinomial Logistic Regression in SPSS - Explained with Example. Statistical Analysis Services For Academic Researches. Available at: https://spssanalysis.com/multinomial-logistic-regression-in-spss/.
-4. Voss, J., Ricardo Antonio Ayub and Sergio Luiz Stevan (2020). E-nose Prototype to Monitoring the Growth and Maturation of Peaches in the Orchard. IEEE sensors journal, 20(20), pp.11741–11750. doi:https://doi.org/10.1109/jsen.2020.3000070.
+
+
+‌
+
+‌
 
 ----
 
