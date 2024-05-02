@@ -118,7 +118,7 @@ What I did differently?
 The outcome was worse than ever - 47.5% accuracy. I needed to pivot. 
 
 ### Model 2: Spirit Classifier Model (EI)
-### Test 1 
+#### Test 1 
 
 What did I do differently?
 - Different, more distinct alcohols 
@@ -137,10 +137,10 @@ I wanted to figure out whether I could remove more axes to at least improve accu
 
 Upon Martin's suggestion, I decided to use some kind of regression analysis to determine which axes to remove. 
 
-#### Linear Regression 
+##### Linear Regression 
 My goal was to use the type of beverage as a categorical dependent variable to see which features are most important in distinguising the three types of alcohol using the [scikit-learn](https://scikit-learn.org/stable/index.html) `linear_model` in google Colab. From there, my coefficient analysis showed me that my NO2 data had even less influence on the alcohol type than my timestamps! (You can upload your files and access the script [here](https://colab.research.google.com/drive/1EfYz-UCEDjvid-uTBobtLptgC90SV4kT?usp=sharing))
 
-##### Interpreting the Coefficients:
+###### Interpreting the Coefficients:
 In this linear regression model, the coefficients indicate how a unit change in each feature is expected to influence the dependent variable (the type of beverage). Even just upon reviewing the data with the naked eye, it was obvious to remove CH4 and NO2 before this model. The more interesting element was the range in importance of H2 data and the relative unimportance of ethanol content.
 
 - NH3max (0.02847629): An increase in the maximum recorded level of NH3 (ammonia) is associated with an increase in the label value. 
@@ -151,17 +151,17 @@ In this linear regression model, the coefficients indicate how a unit change in 
 
 <img width="200" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/cba5849f-fbb8-4e97-98ed-01a55857e474">
 
-##### Checking for linearity:
+###### Checking for linearity:
 After reading more, I realized that using a linear regression may not be appropriate. The actual model should ideally be a "multinomial logistic regression model," as I was using more than two categories as my dependent variable. As such, I decided to check for non-linearity in my data with residual analysis to check for non-linear patterns. After fitting the model, predictions for the training data are made, and residuals (the differences between actual and predicted values) are calculated. From here, I used a Residuals vs. Fitted Values Plot to check if there are any apparent patterns in the residuals.
 
 <img width="200" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/88f8c815-25bc-40ff-ba88-489573d17e12">
 
 I think that I'm getting these three distinct lines because of the nature of my data and that using a logistic regression might better be able to find the probability of category membership.
 
-#### Multinomial Logistic Regression 
+##### Multinomial Logistic Regression 
 Multinomial logistic regression provides a more nuanced interpretation by showing how each predictor affects the log-odds of being in each specific class relative to a reference class (SPSS Analysis, 2024). I saw that a 70/30 data split was common for smaller datasets, like mine, and updated this split to use more testing data. 
 
-##### Interpreting the Coefficients:
+###### Interpreting the Coefficients:
 
 Each row in the coefficient table corresponds to one class relative to the `Label 0` baseline, which I set as gin:
 
@@ -182,12 +182,12 @@ Class 2 (Malbec) vs. Class 0 (Gin):
 ##### Accuracy and Performance:
 <img width="223" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/39581985-b3ad-452c-afd2-806ecdf527be">
 
-### Test 2 
+#### Test 2 
 
 What did I do differently?
 - Reduced features to 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
 
-### Test 3 
+#### Test 3 
 What did I do differently?
 - Maintained features at 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
 - Added a new alcohol that looked like it had different enough readings to replace gin
@@ -199,9 +199,9 @@ While it did well on the cider, the confusion regarding whisky / malbec led me t
 ## Model 3: Spirit Classifier Model (TF lite)   
 I converted my logistic regression model to a Tensorflow model for potential deployment.
 
-## Model 4: 
+### Model 4: 
 
-I added two deep layers to my regression model. 
+I added two deep layers to my regression model to increase the complexity. 
 
 ## Experiments 
 <img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/b7852235-9221-4c27-97ba-036e3fe2504d">
