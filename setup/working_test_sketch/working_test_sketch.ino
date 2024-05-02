@@ -11,6 +11,12 @@ MiCS-4514 gas sensor https://www.dfrobot.com/product-2417.html
 
 #define CALIBRATION_TIME   1   
 
+// I2C slave addresses for DFRobot_MICS_I2C:
+// ADDRESS_0: 0x75  // I2C device address
+// ADDRESS_1: 0x76
+// ADDRESS_2: 0x77
+// ADDRESS_3: 0x78  // Used in this setup
+
 #define Mics_I2C_ADDRESS ADDRESS_0
 DFRobot_MICS_I2C mics(&Wire, 0x75);
 
