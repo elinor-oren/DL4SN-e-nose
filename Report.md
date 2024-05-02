@@ -1,4 +1,3 @@
-IMAGE 
 
 # Using Machine Learning to Create an e-Nose 
 
