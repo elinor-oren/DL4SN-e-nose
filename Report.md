@@ -31,7 +31,7 @@ Imperceptible subtleties and patterns are picked up by machines all the time, bu
 ## Device Overview
 The E-Nose project is composed of the following primary components:
 
-1. Gas Sensor: This is the X sensor, capturing six types of gases to create a gaseous or odor fingerprint of each alcohol. The the variation (min, max, average, etc.) of the concentration of each gas is captured as well.
+1. Gas Sensor: This is a MOS sensor, capturing six types of gases with PPM quantities. This allowed me to create a gaseous or odor fingerprint of each alcohol with the composition and variation (min, max, average, etc.) of the concentration of each gas.
    
 - Carbon Monoxide (CO): Range is 1 – 1000 ppm
 - Nitrogen Dioxide (NO2): Range is 0.05 – 10 ppm
