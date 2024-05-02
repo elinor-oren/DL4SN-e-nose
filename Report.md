@@ -105,15 +105,17 @@ While multiple iterations on training settings, lowering the learning rate to .0
 #### Test 3 
 
 What I did differently?
-- Modifying features (CH4, NH3, C2H5O5)
+- Only 9 input axes - modifying features (CH4, NH3, C2H5O5)
 - Provided more and better data (container has a wider mouth and is in partial to direct sun)
  <img width="657" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/5e8370fe-be71-4c03-9215-fba415c50871">
 <img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/cbc5490e-e929-47f6-bd04-89465a13440a">
 
 #### Test 4 
-- Data: 
-<img width="944" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/517e9372-e083-42ba-bd14-2ea5b234e0ce">
 
+What I did differently? 
+- Refined input axes, based on EI feature importance list 
+
+The outcome was worse than ever - 47.5% accuracy. I needed to pivot. 
 
 ### Model 2: Spirit Classifier Model (EI)
 ### Test 1 
@@ -202,7 +204,7 @@ I converted my logistic regression model to a Tensorflow model for potential dep
 I added two deep layers to my regression model. 
 
 ## Experiments 
-<img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/78c7945d-2e5e-4f0b-8e09-41f8e8d0cadb">
+<img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/b7852235-9221-4c27-97ba-036e3fe2504d">
 
 
 ## Reflections and Observations
@@ -237,8 +239,6 @@ Moving forward, I would try to make the data forwarding function work or use a s
 
 
 ## Bibliography
-*If you added any references then add them in here using this format:*
-
 1.Ahmed, I., Greenwood, R., Ben, Ratcliffe, N.M. and Probert, C.S. (2013). An Investigation of Fecal Volatile Organic Metabolites in Irritable Bowel Syndrome. PloS one, 8(3), pp.e58204–e58204. doi:https://doi.org/10.1371/journal.pone.0058204.
 2. Cabé, B. (2021). How I Built a Connected Artificial Nose (and How You Can Too!). Benjamin Cabé. Available at: https://blog.benjamin-cabe.com/2021/08/03/how-i-built-a-connected-artificial-nose.
 3. Hampson, M. (2022). This E-Nose Sniffs Out the Good Whiskey. IEEE Spectrum. https://spectrum.ieee.org/electronic-nose-whiskey.
@@ -252,9 +252,7 @@ Moving forward, I would try to make the data forwarding function work or use a s
 
 
 
-‌
 
-‌
 
 ----
 
