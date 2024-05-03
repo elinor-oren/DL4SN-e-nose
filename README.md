@@ -8,7 +8,9 @@
 
 ## Step 1 - Hardware (Schematic)
 - Use the TinyML shield
-- Replace the wires in the ribbon cable to align with the sensors 
+- Replace the wires in the ribbon cable to align with the sensors
+- Plug the screen and sensor into the shield's designated I2C ports
+- Run the I2C test in `Enclosure` to see their respective addresses. You can change the sensor's address in the sketch if these conflict.  
 
 ## Step 2 - Software  
 - Download the required libraries from `Enclosure` and add them to your Arduino Libraries.
