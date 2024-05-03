@@ -31,7 +31,7 @@ While you can use the data in this repository, it is likely that different envir
 ## Step 3 - Enclosure 
 ### VERSION 1
 Trace your cut path in the lid of the pringles can. Cut out the hole and stab many other holes to allow airflow. 
-<img width="576" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/a8a20b77-52b0-401f-aba9-1cce1b13d7a4">
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/a8a20b77-52b0-401f-aba9-1cce1b13d7a4">
 
 Tape the sensor to the lid so that it shuts and holds your sensor in place -- be sure to put the tape on the edges (where the screws would be) to avoid interference with any sensitive bits. Stab a hole through the body and thread your cord through. 
 
