@@ -193,14 +193,14 @@ What did I do differently?
 
   <img width="525" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/632c0cb1-57c1-467e-bd58-f81d167e36a8">
 
-While it did well on the cider, the confusion regarding whisky / malbec led me to abandon this approach.  
+While the model did well categorizing the cider, the confusion regarding whisky / malbec led me to simply abandon this approach in favor of the logistic regression approach.  
 
 ## 🔵 Model 3: Spirit Classifier Model Softmax 🔵  
-I converted my logistic regression model to a Tensorflow model for potential deployment.
+I converted my logistic regression model to a Tensorflow model for potential deployment. The accuracy of this was 69%, which was higher than my Model 1 attempts. 
 
 ### 🔵 Model 4: Spirit Classifier MLP 🔵
 
-I added two deep layers to my regression model to increase the complexity. 
+I added two deep layers to my regression model to increase the complexity. The accuracy was the highest of all the models, and I deployed this model to my microcontroller. 
 
 ## Experiments 
 <img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/b7852235-9221-4c27-97ba-036e3fe2504d">
