@@ -1,7 +1,7 @@
 # e-Nose Guide
 
 ## Materials 
-- Arduino BLE 33 Sense + shield 
+- [Arduino BLE 33 Sense TinyML kit (including Arduino shield)](https://store.arduino.cc/products/arduino-tiny-machine-learning-kit) 
 - [MiCS-4514 gas sensor](https://www.dfrobot.com/product-2417.html?)
 - [LCD1602 RGB Module](https://www.waveshare.com/wiki/LCD1602_RGB_Module#Arduino)
 - Two ribbon cables
@@ -10,6 +10,9 @@
 - Use the TinyML shield
 - Replace the wires in the ribbon cable to align with the sensors
 - Plug the screen and sensor into the shield's designated I2C ports
+
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/8c5e0a38-0a81-4057-8932-e8cab2e2af9b">
+
 
 ## Step 2 - Software  
 - Download the .zip libraries from `Enclosure` and add them to your Arduino Libraries.
