@@ -76,8 +76,8 @@ I used the 60/20/20 split for training, validation, and testing data. Edge Impul
 
 ## Model Iterations 
 
-### Model 1: Wine Classifier Model 
-#### Test 1: 
+### 🔵 Model 1: Wine Classifier Model 
+#### 🔶 Test 1: 
 This experiment is intended to develop a workflow of collecting and reformatting data and gaining some experience with the proper parameters to train the model with. This model is meant to establish that the gas signatures can be used to classify the alcohols. This model uses:
 
 - Rose Wine
@@ -88,7 +88,7 @@ Both alcohols are of the same percentage and have the same bottle. The bottles w
 
 The features were mostly separated, and the model consistently performed very poorly on the rosé data. There was 4 minutes less data for the rose, so I believed the error could likely arise from insufficient data.  
 
-#### Test 2 
+#### 🔶 Test 2 
 This experiment was intended to confirm that the model can be deployed in live settings. 
 
 What I did differently?
@@ -101,7 +101,7 @@ What I did differently?
 
 While multiple iterations on training settings, lowering the learning rate to .0001, increasing training cycles to 60, and lowering confidence threshold from 0.6 to 0.3 dramatically increased accuracy rates and lowered loss, this resulted in an overfit model - this was brought to my attention by my programme lead. 
 
-#### Test 3 
+#### 🔶 Test 3 
 
 What I did differently?
 - Only 9 input axes - modifying features (CH4, NH3, C2H5O5)
@@ -109,15 +109,15 @@ What I did differently?
  <img width="657" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/5e8370fe-be71-4c03-9215-fba415c50871">
 <img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/cbc5490e-e929-47f6-bd04-89465a13440a">
 
-#### Test 4 
+#### 🔶 Test 4 
 
 What I did differently? 
 - Refined input axes, based on EI feature importance list 
 
 The outcome was worse than ever - 47.5% accuracy. I needed to pivot. 
 
-### Model 2: Spirit Classifier Model (EI)
-#### Test 1 
+### 🔵 Model 2: Spirit Classifier Model (EI)
+#### 🔶 Test 1 
 
 What did I do differently?
 - Different, more distinct alcohols 
@@ -178,15 +178,15 @@ Class 2 (Malbec) vs. Class 0 (Gin):
 - CH4avg (0.008222): Indicates an increase in methane average levels increases the likelihood of being malbec compared to gin.
 - NH3avg (0.083771): Higher ammonia averages increase the odds of being malbec over gin, opposite of its effect on whisky.
 
-##### Accuracy and Performance:
+###### Accuracy and Performance:
 <img width="223" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/39581985-b3ad-452c-afd2-806ecdf527be">
 
-#### Test 2 
+#### 🔶 Test 2 
 
 What did I do differently?
 - Reduced features to 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
 
-#### Test 3 
+#### 🔶 Test 3 
 What did I do differently?
 - Maintained features at 6 input axes - only used NH3(avg, max, min) and CO(avg, max, min)!
 - Added a new alcohol that looked like it had different enough readings to replace gin
@@ -195,10 +195,10 @@ What did I do differently?
 
 While it did well on the cider, the confusion regarding whisky / malbec led me to abandon this approach.  
 
-## Model 3: Spirit Classifier Model (TF lite)   
+## 🔵 Model 3: Spirit Classifier Model Softmax 🔵  
 I converted my logistic regression model to a Tensorflow model for potential deployment.
 
-### Model 4: 
+### 🔵 Model 4: Spirit Classifier MLP 
 
 I added two deep layers to my regression model to increase the complexity. 
 
