@@ -76,7 +76,7 @@ I used the 60/20/20 split for training, validation, and testing data. Edge Impul
 
 ## Model Iterations 
 
-### 🔵 Model 1: Wine Classifier Model 
+### 🔵 Model 1: Wine Classifier Model 🔵
 #### 🔶 Test 1: 
 This experiment is intended to develop a workflow of collecting and reformatting data and gaining some experience with the proper parameters to train the model with. This model is meant to establish that the gas signatures can be used to classify the alcohols. This model uses:
 
@@ -116,7 +116,7 @@ What I did differently?
 
 The outcome was worse than ever - 47.5% accuracy. I needed to pivot. 
 
-### 🔵 Model 2: Spirit Classifier Model (EI)
+### 🔵 Model 2: Spirit Classifier Model (EI) 🔵
 #### 🔶 Test 1 
 
 What did I do differently?
@@ -198,7 +198,7 @@ While it did well on the cider, the confusion regarding whisky / malbec led me t
 ## 🔵 Model 3: Spirit Classifier Model Softmax 🔵  
 I converted my logistic regression model to a Tensorflow model for potential deployment.
 
-### 🔵 Model 4: Spirit Classifier MLP 
+### 🔵 Model 4: Spirit Classifier MLP 🔵
 
 I added two deep layers to my regression model to increase the complexity. 
 
