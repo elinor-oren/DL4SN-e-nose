@@ -196,11 +196,18 @@ What did I do differently?
 While the model did well categorizing the cider, the confusion regarding whisky / malbec led me to simply abandon this approach in favor of the logistic regression approach.  
 
 ## 🔵 Model 3: Spirit Classifier Model Softmax 🔵  
-I converted my logistic regression model to a Tensorflow model for potential deployment. The accuracy of this was 69%, which was higher than my Model 1 attempts. 
+I converted my logistic regression model to a Tensorflow model for potential deployment. The accuracy of this was 69%, which was higher than my Model 1 attempts.
+
+The softmax activation ensures that the output values are normalized to sum up to 1, making them directly interpretable as probabilities. The output from the model will be a vector of three probabilities, where each element corresponds to the model's confidence that the data belongs to one of the three classes (0, 1, or 2 for gin, whisky, or malbec). An output of `[0.2, 0.7, 0.1]` would suggest that the model believes with 70% confidence that the sample is most likely whisky.
 
 ### 🔵 Model 4: Spirit Classifier MLP 🔵
 
 I added two deep layers to my regression model to increase the complexity. The accuracy was the highest of all the models, and I deployed this model to my microcontroller. 
+
+This model was trained on normalized data, using `StandardScaler`, because it ensures that all features contribute equally and accounts for the different scales in each of the features. I needed to approximate this preprocessing in my Arduino sketch to allow the model to work when deployed. The best approach was to calculate the global mean and standard deviation across all alcohol types and then normalize each data type (average, minimum, maximum) using these global statistics. 
+
+<img width="300" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/a630b350-82f0-442f-bd64-a321601d217c">
+
 
 ## Experiments 
 <img width="800" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/b7852235-9221-4c27-97ba-036e3fe2504d">
