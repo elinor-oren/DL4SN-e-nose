@@ -47,7 +47,7 @@ The E-Nose project is composed of the following primary components:
 
 ## Application Overview
 
-### Models 1 & 2: Complex Neural Network
+### Models 1 & 2: Convolutional Neural Network
 This model is more complex with multiple dense layers, and more controlled training parameters like batch size and determinism flags. This model is more robust but unnecessarily complex for my needs. For these models I did not use any DSP blocks because the standard Edge Impulse options ones were geared towards time-series data; I think this approach generally didn't work well because it was meant to be timeseries data. 
 
 <img width="500" alt="image" src="https://github.com/elinor-oren/DL4SN-e-nose/assets/127933946/94852c4e-4595-4a88-8be8-37b3713de109">
